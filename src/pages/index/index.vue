@@ -38,7 +38,7 @@ export default {
           id: 'form',
           name: '主页明天再改啦',
           open: false,
-          pages: ['学生事务', '社团活动', '校园查询', '通知通告']
+          pages: ['affairs', 'club', 'search', 'broadcast']
         }
       ]
     };
