@@ -12,48 +12,36 @@
       </div>
       <div class="weui-tab__panel">
         <div class="weui-tab__content" :hidden="activeIndex != 0">
-          <div class='content-list'>
-            <block v-for="(item2,index2) in NewsList" :key="index2">
-               <div class='list-item'>
-                 <div class='list-item-content'>
-                    <div class='article-title'>{{item2.Title}}</div>
-                 </div>
-               </div>
-             </block>
+          <div v-for="(item2,index2) in NewsList" :key="index2" class="weui-cells weui-cells_after-title">
+            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <div class="weui-cell__bd" style="text-align:left">{{item2.Title}}</div>
+                <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+            </navigator>
           </div>
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 1">
-          <div class='content-list'>
-            <block v-for="(item2,index2) in NewsList" :key="index2">
-               <div class='list-item'>
-                 <div class='list-item-content'>
-                    <div class='article-title'>{{item2.Title}}</div>
-                 </div>
-               </div>
-             </block>
-          </div>    
+          <div v-for="(item2,index2) in NewsList" :key="index2" class="weui-cells weui-cells_after-title">
+            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <div class="weui-cell__bd" style="text-align:left">{{item2.Title}}</div>
+                <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+            </navigator>
+          </div>
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 2">
-          <div class='content-list'>
-            <block v-for="(item2,index2) in NewsList" :key="index2">
-               <div class='list-item'>
-                 <div class='list-item-content'>
-                    <div class='article-title'>{{item2.Title}}</div>
-                 </div>
-               </div>
-             </block>
-          </div>    
+          <div v-for="(item2,index2) in NewsList" :key="index2" class="weui-cells weui-cells_after-title">
+            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <div class="weui-cell__bd" style="text-align:left">{{item2.Title}}</div>
+                <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+            </navigator>
+          </div>   
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 3">
-          <div class='content-list'>
-            <block v-for="(item2,index2) in NewsList" :key="index2">
-               <div class='list-item'>
-                 <div class='list-item-content'>
-                    <div class='article-title'>{{item2.InfoTitle}}</div>
-                 </div>
-               </div>
-             </block>
-          </div>    
+          <div v-for="(item2,index2) in NewsList" :key="index2" class="weui-cells weui-cells_after-title">
+            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <div class="weui-cell__bd" style="text-align:left">{{item2.Title}}</div>
+                <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+            </navigator>
+          </div>
         </div>
       </div>
     </div>
@@ -100,8 +88,6 @@ export default {
       if (this.activeIndex == 0) {
         let fly = new Fly; //创建fly实例
         fly.get('http://sz.shuhelper.cn/TongZGG/TongZGG/GetShuNews?pageSize=10&pageNumber=2', {
-        
-
         }).then(res => {
           wx.hideLoading()
           this.NewsList = res.data.data.tongzgg;
@@ -109,7 +95,6 @@ export default {
       } else if (this.activeIndex == 1){
         let fly = new Fly; //创建fly实例
         fly.get('http://sz.shuhelper.cn/mobile/campusmessage/getxgbmessagelist', {
-        
           limit: 10,
           currentPage: 1
         }).then(res => {
