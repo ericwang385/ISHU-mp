@@ -6,11 +6,11 @@ Vue.config.productionTip = false;
 App.mpType = 'app';
 Vue.prototype.$store = store;
 import '../static/weui/weui.css'
+
 const app = new Vue({
   App
 })
 app.$mount();
-
 export default {
   // 这个字段走 app.json
   config: {
@@ -26,7 +26,8 @@ export default {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'iSHU',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      enablePullDownRefresh: true
     }
     /* tabBar: {
       color: '#999999',

@@ -13,6 +13,7 @@
   "dependencies": {
     "flyio": "^0.5.9",
     "mpvue": "^1.0.12",
+    "quasar": "0.0.18",
     "vuex": "^2.3.1"
   },
   "devDependencies": {
