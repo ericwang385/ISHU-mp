@@ -15,6 +15,7 @@ export default {
   // 这个字段走 app.json
   config: {
     pages: [
+      'pages/login/login',
       '^pages/index/index',
       'pages/broadcast/broadcast',
       'pages/club/club',

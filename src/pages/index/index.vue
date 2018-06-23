@@ -1,10 +1,13 @@
 <template>
   <div class="page">
-    <div class="page__hd">
-      <div class="page__title">WeUI</div>
-      <div class="page__desc">WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。</div>
+    <div class="swiper" style="height:100%">
+      <swiper indicator-dots='true' autoplay="true" interval="4500" style="height:30vh;margin-bottom:5vh;">
+        <swiper-item v-for="img in imgs" :key="img">
+          <image :src="img" />
+        </swiper-item>
+      </swiper>
     </div>
-    <div class="page__bd page__bd_spacing">
+    <!--<div class="page__bd page__bd_spacing">
       <div class="kind-list">
         <div v-for="(item1,index1) in list" :key="index1">
           <div class="kind-list__item">
@@ -25,11 +28,22 @@
           </div>
         </div>
       </div>
+    </div>-->
+    <div class="page__bd">
+      <div class="weui-grids grid">
+        <block v-for="(item,index) in grids" :key="index">
+          <navigator :url='item.url' class="weui-grid" hover-class="weui-grid_active">
+            <image class="weui-grid__icon" :src="item.src"></image>
+            <div class="weui-grid__label">{{item.name}}</div>
+          </navigator>
+        </block>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import card from '@/components/card'
 export default {
   data() {
     return {
@@ -40,6 +54,43 @@ export default {
           open: false,
           pages: ['affairs', 'club', 'search', 'broadcast']
         }
+      ],
+      imgs: [
+        '/static/images/2018.jpg',
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/2.jpg',
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/3.jpg'
+      ],
+      grids: [
+        {
+          src: '/static/images/school-info.png',
+          name: '通知通告',
+          url: '/pages/broadcast/broadcast'
+        },
+        {
+          src: '/static/images/school-activity.png',
+          name: '校园活动',
+          url: '/pages/affairs/affairs'
+        },
+        {
+          src: '/static/images/school-query.png',
+          name: '校园查询',
+          url: '/pages/search/search'
+        },
+        {
+          src: '/static/images/school-service.png',
+          name: '场地预约',
+          url: '/pages/search/search'
+        },
+        {
+          src: '/static/images/community-signup.png',
+          name: '社团风采',
+          url: '/pages/club/club'
+        },
+        {
+          src: '/static/images/banshi-query.png',
+          name: '事务办理',
+          url: '/pages/affairs/affairs'
+        },
       ]
     };
   },
@@ -135,5 +186,17 @@ export default {
 
 .kind-list__item-bd_show {
   height: auto;
+}
+swiper {
+  height: 30vh;
+}
+swiper image {
+  width: 100%;
+  height: 5rem;
+}
+.grid {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 5px;
 }
 </style>
