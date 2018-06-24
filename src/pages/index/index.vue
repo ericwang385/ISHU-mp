@@ -25,14 +25,6 @@ import card from '@/components/card'
 export default {
   data() {
     return {
-      list: [
-        {
-          id: 'form',
-          name: '主页明天再改啦',
-          open: false,
-          pages: ['affairs', 'club', 'search', 'broadcast']
-        }
-      ],
       imgs: [
         '/static/images/2018.jpg',
         'https://static.shuhelper.cn/shuces/mpapp/imgs/2.jpg',

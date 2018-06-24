@@ -10,19 +10,31 @@
           <div class="kind-list__item">
             <div :id=item1.ID :class="{'kind-list__item-hd_show':item1.open}" class="weui-flex,kind-list__item-hd" @click="kindToggle">
               <div class="weui-flex__item">{{item1.name}}</div>
-              <img class="kind-list__img" :src=" '/static/images/icon_nav_form.png'">
+              <img class="kind-list__img" :src=" '/static/images/'+item1.avi+'.png'">
             </div>
             <div :class="{'kind-list__item-bd_show':item1.open}" class="kind-list__item-bd">
               <div :class="{'weui-cells_show':item1.open}" class="weui-cells">
-                <div class="weui-cell__bd">标题文字</div>
-                <div class="weui-cell__ft">说明文字</div>
+                <div class="weui-cell">
+                <div class="weui-cell__bd">教室容量</div>
+                <div class="weui-cell__ft">{{item1.cap}}</div>
+                </div>
+                <div class="weui-cell">
+                <div class="weui-cell__bd">教室类型</div>
+                <div class="weui-cell__ft">{{item1.type}}</div>
+                </div>
+                <div class="weui-cell">
+                <div class="weui-cell__bd">教室状态</div>
+                <div class="weui-cell__ft">{{item1.aviliable}}</div>
+                </div>
+                  <button v-if="item1.aviliable == '可用'" type="primary" class="weui-btn mini-btn"  @click="turnToVuexPage">预约</button>
+                  <button v-else type="warn" class="weui-btn mini-btn" disabled=true>不可预约</button>
               </div>
+            </div>
+            </div>
             </div>
           </div>
         </div>
         </div>
-        </div>
-    </div>
 </template>
 <script>
 import base64 from '../../../static/images/base64'
@@ -31,28 +43,32 @@ export default {
     data() {
     return {
       rooms: [],
-      open: {}
     }
     },
     created() {
         this.getRooms()
     },
     methods: {
+      turnToVuexPage() {
+      wx.navigateTo({
+        url: '/pages/room_booking_card/room_booking_card'
+      })
+    },
     kindToggle(e) {
       var id = e.currentTarget.id,
-        list = this.open;
-      for (var i = 1, len = 9; i < len; ++i) {
-        
-        if (i == id) {
-          list[i] = !list[i];
+        list = this.rooms;
+      for (var i = 0, len = list.length; i < len; ++i) {
+        if (list[i].ID == id) {
+          list[i].open = !list[i].open;
         } else {
-          list[i] = false;
+          list[i].open = false;
         }
       }
-      this.open = list;
-      console.log(this.open)
+      this.rooms = list;
+      console.log(this.rooms)
       
     },
+
     getRooms() {
       let fly = new Fly;
       fly.get('http://sz.shuhelper.cn/api/ChangDXX/ChangDXX/GetShiNCDXX', {
@@ -62,16 +78,26 @@ export default {
         .then(response =>  {
           console.log(response)
           for (let item of response.data.data.changdxx) {
+            if (item.ChangDZT=='激活'){
+              item.ChangDZT='可用'
+              item.CreatedGH='correct'
+              }
+            else{
+              item.ChangDZT='已借出'
+              item.CreatedGH='Attention'
+            }
             let room = {
               cap: item.ChangDRL,
-              ID: item.Id,
+              ID: parseInt(item.Id),
               name: item.ChangDMC,
               aviliable: item.ChangDZT,
-              type: item.ChangDSX
+              type: item.ChangDSX,
+              open: item.IsDeleted,
+              avi: item.CreatedGH
             }
             this.rooms.push(room)
-            this.open[parseInt(room.ID)] = false
           }
+          
           
         })
     }

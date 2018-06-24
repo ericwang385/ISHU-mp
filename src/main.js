@@ -16,12 +16,13 @@ export default {
   config: {
     pages: [
       'pages/login/login',
-      '^pages/index/index',
+      'pages/index/index',
       'pages/broadcast/broadcast',
       'pages/club/club',
       'pages/search/search',
       'pages/affairs/affairs',
-      'pages/room_booking/room_booking'
+      'pages/room_booking/room_booking',
+      '^pages/room_booking_card/room_booking_card'
 
     ], // Will be filled in webpack
     window: {
