@@ -130,9 +130,7 @@ export default {
       else if (category === 1) {
         let fly = new Fly;
           fly.get('/mobile/campusmessage/GetXgbCampusMessageById', {
-            params: {
               MsgID: this.newsSingle.MsgID
-            }
           })
           .then(response => {
             this.newsSingle.detail = response.data.Summary
@@ -143,9 +141,7 @@ export default {
       }else if (category === 2) {
         this.$http
           .get('/mobile/campusmessage/GetJwcMessageById', {
-            params: {
               MsgID: this.newsSingle.MsgID
-            }
           })
           .then(response => {
             this.newsSingle.detail = response.data.Summary

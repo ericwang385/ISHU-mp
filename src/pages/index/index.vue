@@ -7,33 +7,11 @@
         </swiper-item>
       </swiper>
     </div>
-    <!--<div class="page__bd page__bd_spacing">
-      <div class="kind-list">
-        <div v-for="(item1,index1) in list" :key="index1">
-          <div class="kind-list__item">
-            <div :id=item1.id :class="{'kind-list__item-hd_show':item1.open}" class="weui-flex,kind-list__item-hd" @click="kindToggle">
-              <div class="weui-flex__item">{{item1.name}}</div>
-              <img class="kind-list__img" :src=" '/static/images/icon_nav_'+item1.id+'.png'">
-            </div>
-            <div :class="{'kind-list__item-bd_show':item1.open}" class="kind-list__item-bd">
-              <div :class="{'weui-cells_show':item1.open}" class="weui-cells">
-                <div v-for="(item2,index2) in item1.pages" :key="index2">
-                  <navigator class="weui-cell weui-cell_access" :url=" '/pages/'+item2+'/'+item2+ ''">
-                    <div class="weui-cell__bd">{{item2}}</div>
-                    <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-                  </navigator>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
     <div class="page__bd">
       <div class="weui-grids grid">
         <block v-for="(item,index) in grids" :key="index">
           <navigator :url='item.url' class="weui-grid" hover-class="weui-grid_active">
-            <image class="weui-grid__icon" :src="item.src"></image>
+            <image class="weui-grid__icon" :src="item.src"/>
             <div class="weui-grid__label">{{item.name}}</div>
           </navigator>
         </block>
@@ -79,7 +57,7 @@ export default {
         {
           src: '/static/images/school-service.png',
           name: '场地预约',
-          url: '/pages/search/search'
+          url: '/pages/room_booking/room_booking'
         },
         {
           src: '/static/images/community-signup.png',

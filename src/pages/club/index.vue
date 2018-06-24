@@ -1,8 +1,5 @@
 <template>
   <div class="page">
-    <div class="page__hd">
-      <div class="page__title">这里写社团活动</div>
-    </div>
     <div class="page__bd_spacing"></div>
     <div class="page__desc">
     </div>

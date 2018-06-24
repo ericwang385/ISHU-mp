@@ -20,7 +20,8 @@ export default {
       'pages/broadcast/broadcast',
       'pages/club/club',
       'pages/search/search',
-      'pages/affairs/affairs'
+      'pages/affairs/affairs',
+      'pages/room_booking/room_booking'
 
     ], // Will be filled in webpack
     window: {
