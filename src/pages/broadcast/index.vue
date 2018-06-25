@@ -144,7 +144,6 @@ export default {
       if (category === 'XGB') {
         let fly = new Fly;
           fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetXgbCampusMessageById', {
-              MsgID: this.newsSingle.MsgID
           })
           .then(response => {
             this.newsSingle.detail = response.data.Summary
@@ -155,9 +154,7 @@ export default {
       }else if (category === 2) {
         this.$http
           .get('/mobile/campusmessage/GetJwcMessageById', {
-            params: {
               MsgID: this.newsSingle.MsgID
-            }
           })
           .then(response => {
             this.newsSingle.detail = response.data.Summary
