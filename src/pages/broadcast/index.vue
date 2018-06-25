@@ -30,16 +30,16 @@
         <div class="weui-tab__content" :hidden="activeIndex != 2">
           <div v-for="(item2,index2) in news.JWC" :key="index2" class="weui-cells weui-cells_after-title">
             <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <div class="weui-cell__bd" style="text-align:left">{{item2.title}}</div>
-                <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+              <div class="weui-cell__bd" style="text-align:left" @click="onNewsClick('JWC',index2)">{{item2.title}}</div>
+              <div class="weui-cell__ft weui-cell__ft_in-access"></div>
             </navigator>
           </div>   
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 3">
           <div v-for="(item2,index2) in news.JYB" :key="index2" class="weui-cells weui-cells_after-title">
             <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <div class="weui-cell__bd" style="text-align:left">{{item2.title}}</div>
-                <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+              <div class="weui-cell__bd" style="text-align:left" @click="onNewsClick('JYB',index2)">{{item2.title}}</div>
+              <div class="weui-cell__ft weui-cell__ft_in-access"></div>
             </navigator>
           </div>
         </div>
@@ -117,7 +117,6 @@ export default {
         mask: true
       })
     },
-<<<<<<< HEAD
     openConfirm(title,url) {
       wx.showModal({
         title: title,
@@ -137,31 +136,16 @@ export default {
         }
       });
     },
-    onNewsClick(category, index) {
-      this.newsSingle = this.news[category][index]
-      this.newsSingle.type = category
-      this.open = true
-      //this.loading = true
-      if (category === 'XGB') {
-        let fly = new Fly;
-          fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetXgbCampusMessageById', {
-          })
-=======
     onNewsClick (category, index) {
       this.newsSingle = this.news[category][index]
       this.newsSingle.type = category
       this.open = true
       this.loading = true
-      if (category === 0) {
-        this.open = false
-        this.loading = false
-        window.open(this.newsSingle.url)
-      } else if (category === 1) {
+      if (category === 1) {
         let fly = new Fly();
         fly.get('/mobile/campusmessage/GetXgbCampusMessageById', {
           MsgID: this.newsSingle.MsgID
         })
->>>>>>> 5fb0899b8e14bcc1dcbe58ffbebaf5d2d4b58b0d
           .then(response => {
             this.newsSingle.detail = response.data.Summary
             this.loading = false
@@ -177,23 +161,22 @@ export default {
             this.newsSingle.detail = response.data.Summary
             this.loading = false
           })
-      } else if (category === 3) {
-        this.loading = false
+      } else if (category === 'JYB') {
+          this.newsSingle.MsgID = index
       }
       var that=this;
       wx.showModal({
         title: this.newsSingle.title,
-        content : '是否进入网页',
+        content : '是否进入页面',
         confirmText: "确定",
         cancelText: "返回",
         success: function (res) {
           console.log(res);
           if (res.confirm) {
             console.log('用户点击确定')
-            console.log(that.newsSingle);
-            console.log(JSON.stringify(that.newsSingle))
+            console.log(that.newsSingle.MsgID);
             wx.navigateTo({
-              url:"/pages/articlepage/articlepage?title="+that.newsSingle.title+"&detail="+JSON.stringify(that.newsSingle.detail)
+              url:"/pages/articlepage/articlepage?type="+that.newsSingle.type+"&MsgID="+that.newsSingle.MsgID
             })
           } else {
             console.log('用户点击返回')

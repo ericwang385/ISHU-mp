@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="page__bd"
-      <web-view src="http://sz.shuhelper.cn/mobile/campusmessage/GetXgbCampusMessageById?MsgID=230624"></web-view> 
+      <web-view v-bind:src="url"></web-view> 
     </div>
   </div>
 </template>
