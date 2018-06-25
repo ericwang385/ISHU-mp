@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import card from '@/components/card'
+// import card from '@/components/card'
 export default {
-  data() {
+  data () {
     return {
       imgs: [
         '/static/images/2018.jpg',
@@ -39,7 +39,7 @@ export default {
         {
           src: '/static/images/school-activity.png',
           name: '校园活动',
-          url: '/pages/affairs/affairs'
+          url: '/pages/activity/activity'
         },
         {
           src: '/static/images/school-query.png',
@@ -60,7 +60,7 @@ export default {
           src: '/static/images/banshi-query.png',
           name: '事务办理',
           url: '/pages/affairs/affairs'
-        },
+        }
       ]
     };
   },
@@ -68,11 +68,11 @@ export default {
   components: {},
 
   methods: {
-    kindToggle(e) {
-      var id = e.currentTarget.id,
+    kindToggle (e) {
+      let id = e.currentTarget.id,
         list = this.list;
       for (var i = 0, len = list.length; i < len; ++i) {
-        if (list[i].id == id) {
+        if (list[i].id === id) {
           list[i].open = !list[i].open;
         } else {
           list[i].open = false;
@@ -82,7 +82,7 @@ export default {
     }
   },
 
-  created() { }
+  created () { }
 };
 </script>
 

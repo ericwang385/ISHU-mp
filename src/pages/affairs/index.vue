@@ -73,15 +73,15 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      tabs: ["证明类", "事务类", "场地租借"],
+      tabs: ['证明类', '事务类', '场地租借'],
       activeIndex: 0,
       fontSize: 30,
       issues: [
         [
           {
-            name: "在读证明",
+            name: '在读证明',
             open: false,
             detail: `
             一、普通在读证明
@@ -99,7 +99,7 @@ export default {
             `
           },
           {
-            name: "居住证明",
+            name: '居住证明',
             open: false,
             detail: ` 请前往校本部A400学生服务中心15号窗口办理：<br/>
                       请同学先前往武保处网站下载相关表格，填写完成后在15号窗口进行信息审核与盖章<br/>
@@ -107,26 +107,26 @@ export default {
                       注意：居住证明办理只限宝山校区(校本部)住宿学生，其他校区或已退宿学生不予办理`
           },
           {
-            name: "成绩证明",
+            name: '成绩证明',
             open: false,
             detail: `<br/>
                       在校本科生成绩大表，成绩排名证明，请前往在A楼5楼教务处办理<br/>
                       注意: 成绩证明办理请先在学生所在学院教务办公室签字盖章`
           },
           {
-            name: "创新项目立项，结题证明",
+            name: '创新项目立项，结题证明',
             open: false,
             detail: ` 请至行政楼306找相关老师办理<br/>
                       注意：结题证明开具需学院已将相关结题材料上交后进行`
           },
           {
-            name: "婚育证明",
+            name: '婚育证明',
             open: false,
             detail: `请至行政楼411找相关老师办理<br/>
                       电话: 021-66134532转802`
           },
           {
-            name: "户籍证明",
+            name: '户籍证明',
             open: false,
             detail: ` 集体户口学生，因私需公安机关出具《户籍证明》，由本人填写申请表（须在申请表中填写事由和用途，如申办护照、出国签证、边境出入证、就业、结婚、公证等），请辅导员老师或导师签名认可并加盖学院公章，同时需开具在读证明，后持本人身份证、申请表、在读证明，在保卫处“窗口”申领《户籍证明》介绍信，最后携带本人身份证、保卫处出具的《户籍证明》介绍信和在读证明，到集体户口管辖地区公安派出所办理《户籍证明》。申请表可在武保处网站服务指南板块里下载也可在武保处领取。
                       <br />
@@ -150,7 +150,7 @@ export default {
         ],
         [
           {
-            name: "毕业生协议书鉴定(本科生)",
+            name: '毕业生协议书鉴定(本科生)',
             open: false,
             detail: `  前往校本部A400学生服务中心5号窗口办理：<br/>
                       请先在网上填写电子协议书 <br/>
@@ -163,7 +163,7 @@ export default {
                       窗口电话：021-66135238`
           },
           {
-            name: "成绩单补办",
+            name: '成绩单补办',
             open: false,
             detail: `  全国大学生英语四、六级考试成绩单遗失申请补办 <br/>
                       上海市高校计算机等级考试成绩单遗失申请补办 <br/>
@@ -172,43 +172,43 @@ export default {
                       以上成绩单遗失补办可于A楼5楼教务处进行办理`
           },
           {
-            name: "困难生认定(本科生)",
+            name: '困难生认定(本科生)',
             open: false,
             detail: ` 前往校本部A400学生服务中心8号窗口办理<br/>
                       窗口电话: 021-66134737 <br/>`
           },
           {
-            name: "绿色通道(本科生)",
+            name: '绿色通道(本科生)',
             open: false,
             detail: `   前往校本部A400学生服务中心8号窗口办理<br/>
                       窗口电话: 021-66134737 <br/>`
           },
           {
-            name: "国家助学贷款(本科生)",
+            name: '国家助学贷款(本科生)',
             open: false,
             detail: ` 前往校本部A400学生服务中心8号窗口办理<br/>
                       窗口电话: 021-66134737 <br/>`
           },
           {
-            name: "助学金(本科生)",
+            name: '助学金(本科生)',
             open: false,
             detail: ` 前往校本部A400学生服务中心8号窗口办理<br/>
                       窗口电话: 021-66134737 <br/>`
           },
           {
-            name: "临时困难补助(本科生)",
+            name: '临时困难补助(本科生)',
             open: false,
             detail: ` 前往校本部A400学生服务中心8号窗口办理<br/>
                       窗口电话: 021-66134737 <br/>`
           },
           {
-            name: "慈善爱心屋",
+            name: '慈善爱心屋',
             open: false,
             detail: ` 前往C楼车库慈善爱心屋办理<br/>
                       电话: 021-66135120 <br/>`
           },
           {
-            name: "勤工助学(本科生)",
+            name: '勤工助学(本科生)',
             open: false,
             detail: ` 前往校本部A400学生服务中心8号窗口办理<br/>
                       窗口电话: 021-66134737 <br/>`
@@ -216,19 +216,19 @@ export default {
         ],
         [
           {
-            name: "南区场地预约",
+            name: '南区场地预约',
             open: false,
             detail: `  请前往成就系统上预约`
           },
           {
-            name: "A400北区场地预约",
+            name: 'A400北区场地预约',
             open: false,
             detail: ` 至学生服务中心官网下载打印场地预约表，填写好后经负责教师签字盖章，交至A400前台。<br/>
                       前台电话:021-66131186<br/>
                       可打电话或直接前往A400前台进行预约`
           },
           {
-            name: "校内活动场地审批",
+            name: '校内活动场地审批',
             open: false,
             detail: ` 要在武保处备案，然后去团委审批，具体事宜可去北门武保处或团委询问`
           }
@@ -237,27 +237,27 @@ export default {
     };
   },
   computed: {
-    navbarSliderClass() {
+    navbarSliderClass () {
       if (this.activeIndex == 0) {
-        return "weui-navbar__slider_0";
+        return 'weui-navbar__slider_0';
       }
       if (this.activeIndex == 1) {
-        return "weui-navbar__slider_1";
+        return 'weui-navbar__slider_1';
       }
       if (this.activeIndex == 2) {
-        return "weui-navbar__slider_2";
+        return 'weui-navbar__slider_2';
       }
     }
   },
   methods: {
-    tabClick(e) {
+    tabClick (e) {
       console.log(e);
       this.activeIndex = e.currentTarget.id;
     },
-    kindToggle(e) {
+    kindToggle (e) {
       var name = e.currentTarget.id,
         list = this.issues[this.activeIndex]
-      
+
       for (var i = 0, len = list.length; i < len; ++i) {
         if (list[i].name == name) {
           list[i].open = !list[i].open;
@@ -268,7 +268,6 @@ export default {
         console.log(list[i].open)
       }
       this.issues[this.activeIndex] = list;
-
     }
   }
 };
