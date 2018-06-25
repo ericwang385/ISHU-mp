@@ -26,7 +26,7 @@
                 <div class="weui-cell__bd">教室状态</div>
                 <div class="weui-cell__ft">{{item1.aviliable}}</div>
                 </div>
-                  <button v-if="item1.aviliable == '可用'" type="primary" class="weui-btn mini-btn"  @click="turnToVuexPage">预约</button>
+                  <button :id=item1.ID v-if="item1.aviliable == '可用'" type="primary" class="weui-btn mini-btn"  @click="turnToVuexPage">预约</button>
                   <button v-else type="warn" class="weui-btn mini-btn" disabled=true>不可预约</button>
               </div>
             </div>
@@ -49,9 +49,9 @@ export default {
         this.getRooms()
     },
     methods: {
-      turnToVuexPage() {
+      turnToVuexPage(e) {
       wx.navigateTo({
-        url: '/pages/room_booking_card/room_booking_card'
+        url: '/pages/room_booking_card/room_booking_card?id='+e.currentTarget.id
       })
     },
     kindToggle(e) {

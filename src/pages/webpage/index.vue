@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="page__bd"
-      <web-view v-bind:src="url"></web-view> 
+      <web-view :src="url"></web-view>
     </div>
   </div>
 </template>
