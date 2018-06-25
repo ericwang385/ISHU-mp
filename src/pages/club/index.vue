@@ -1,21 +1,50 @@
 <template>
   <div class="page">
-    <div class="page__bd_spacing"></div>
-    <div class="page__desc">
+    <div class="page__bd">
+      <div class="weui-tab">
+        <div class="weui-navbar">
+          <block v-for="(item,index) in tabs" :key="index">
+            <div :id="index" :class="{'weui-bar__item_on':activeIndex === index}" class="weui-navbar__item" @click="tabClick">
+              <div class="weui-navbar__title">{{item}}</div>
+            </div>
+          </block>
+          <div class="weui-navbar__slider" :class="navbarSliderClass"></div>
+        </div>
+        <div class="weui-tab__panel">
+          <div class="weui-tab__content" :hidden="activeIndex != 0">
+            <!--选项一的内容-->
+            <div class="weui-search-bar__box">
+              <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+              <input type="text" class="weui-search-bar__input" placeholder="输入组织名称并搜索" v-model="search.name" />
+            </div>
+            <club-card v-for="(club,index) in clubs" :club="club" :key="index" @onFavoriteClick="onFavoriteClick(index)" @onRegisterClick="onRegisterClick(index)"></club-card>
+          </div>
+          <div class="weui-tab__content" :hidden="activeIndex != 1">
+            <club-sign-up></club-sign-up>
+          </div>
+          <!--<div class="weui-tab__content" :hidden="activeIndex != 2">选项三的内容</div>-->
+        </div>
+      </div>
     </div>
-    <div class="weui-search-bar__box">
-      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-      <input type="text" class="weui-search-bar__input" placeholder="输入组织名称并搜索" v-model="search.name" />
-    </div>
-    <club-card v-for="(club,index) in clubs" :club="club" :key="index" @onFavoriteClick="onFavoriteClick(index)" @onRegisterClick="onRegisterClick(index)"></club-card>
-
-
-
   </div>
+  <!--<div class="page">-->
+  <!--<div class="page__hd">-->
+  <!--<div class="page__title">这里写社团活动</div>-->
+  <!--</div>-->
+  <!--<div class="page__bd_spacing"></div>-->
+  <!--<div class="page__desc">-->
+  <!--</div>-->
+  <!--<div class="weui-search-bar__box">-->
+  <!--<icon class="weui-icon-search_in-box" type="search" size="14"></icon>-->
+  <!--<input type="text" class="weui-search-bar__input" placeholder="输入组织名称并搜索" v-model="search.name" />-->
+  <!--</div>-->
+  <!--<club-card v-for="(club,index) in clubs" :club="club" :key="index" @onFavoriteClick="onFavoriteClick(index)" @onRegisterClick="onRegisterClick(index)"></club-card>-->
+  <!--</div>-->
 </template>
 
 <script>
   import ClubCard from '../../components/club_card.vue'
+  import ClubSignUp from '../../components/club_signup'
   import Fly from 'flyio/dist/npm/wx'
   // import {
   //   Loading,
@@ -26,14 +55,26 @@
   //   // QSpinnerGears
   // } from 'quasar'
   export default {
-    config: {
-      'enablePullDownRefresh': true
-    },
+
     components: {
-      ClubCard
+      ClubCard,
+      ClubSignUp
+    },
+    computed: {
+      navbarSliderClass () {
+        if (this.activeIndex === 0) {
+          return 'weui-navbar__slider_0'
+        }
+        if (this.activeIndex === 1) {
+          return 'weui-navbar__slider_1'
+        }
+      }
     },
     data () {
       return {
+        tabs: ['社团信息', '社团报名'],
+        activeIndex: 0,
+        fontSize: 30,
         selectedTab: '',
         phone: '',
         email: '',
@@ -69,11 +110,13 @@
     created () {
       this.getClubs()
     },
+    onReachBottom () {
+      this.loadMore()
+    },
     methods: {
-      async onPullDownRefresh () { // 下拉刷新
-        console.log('下拉刷新')
-        this.loadMore()
-        wx.stopPullDownRefresh()
+      tabClick (e) {
+        console.log(e);
+        this.activeIndex = e.currentTarget.id;
       },
       onFavoriteClick (index) {
         if (!this.$user.login) {
@@ -141,5 +184,25 @@
   }
   .weui-cell {
     padding: 12px 15px 12px 35px;
+  }
+  page,
+  .page,
+  .page__bd {
+    height: 100%;
+  }
+  .page__bd {
+    padding-bottom: 0;
+  }
+  .weui-tab__content {
+    padding-top: 60px;
+    /*text-align: center;*/
+  }
+  .weui-navbar__slider_0 {
+    left: 29rpx;
+    transform: translateX(0);
+  }
+  .weui-navbar__slider_1 {
+    left: 29rpx;
+    transform: translateX(375rpx);
   }
 </style>

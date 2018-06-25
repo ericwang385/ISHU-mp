@@ -34,24 +34,24 @@
             </div>
             <!--<icon type="star" size="93"></icon>-->
             <div class="icon-box">
-                  <!--<div class="icon-box__desc">用于表示信息提示；也常用于缺乏条件的操作拦截，提示用户所需信息</div>-->
-                  <div class="weui-rate-wrap">
-                    <ul class="weui-rate">
-                      <li >社团评星：</li>
-                      <li class="weui-rate-item" v-for="n in max" :key="index"
-                          :class="{'weui-rate-item-active' : index <= club.stars}" :data-index='index'>
-                        <div class="weui-rate-item-def"></div>
-                      </li>
-                    </ul>
-                  </div>
+              <!--<div class="icon-box__desc">用于表示信息提示；也常用于缺乏条件的操作拦截，提示用户所需信息</div>-->
+              <div class="weui-rate-wrap">
+                <ul class="weui-rate">
+                  <li>社团评星：</li>
+                  <li class="weui-rate-item" v-for="n in max" :key="index"
+                      :class="{'weui-rate-item-active' : index <= club.stars}" :data-index='index'>
+                    <div class="weui-rate-item-def"></div>
+                  </li>
+                </ul>
               </div>
             </div>
+          </div>
         </div>
       </navigator>
     </div>
     <div class="weui-panel__ft">
       <div class="weui-cell weui-cell_access weui-cell_link">
-        <button class="weui-btn mini-btn" type="default" size="mini" @click="open=true">查看简介</button>
+          <button class="weui-btn mini-btn" type="default" size="mini" @click="OnClick()">查看简介</button>
         <div class="weui-cell__ft weui-cell__ft_in-access"></div>
       </div>
       <div class="club_detail_style_sheet weui-article__p" v-if="open===false" v-html="club.detail"></div>
@@ -74,12 +74,19 @@
     },
     data () {
       return {
-        open: false,
+        open: true,
         max: 5
       }
     },
     name: 'club_card.vue',
-    method: {
+    methods: {
+      OnClick () {
+        if (this.open === true) {
+          this.open = false;
+        } else {
+          this.open = true;
+        }
+      }
 
     }
   }
@@ -112,7 +119,8 @@
   .weui-rate-item-active .weui-rate-item-def {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAilBMVEUAAAD/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyr/uyoEd/G7AAAALXRSTlMA+fUzFQ/vioT9vJE9tqNmLRsL2KuYe005JiID6ebhoJtxbF/qzMSxWx9FQgn3q32nAAABYUlEQVRIx5XV2XKDMAwFUJt9h5BAyL5vbe///14zNMShWNg+T8wgwSAZiRGShJmJUrN4G7CNEm7AzCS+ABAuDBJmeMr04xchnvhSO2GHVqUbv+Ro8YlmQoUXXy9+wrsEy9FKiPEW6MQ7lkjwXKbm40Ot9wJh/aNMCNBzVDz+++ihZ5Mn8lK5TR5Ha0htojhvxOeX9slPt1Dapv7JLhnzQxgIfbbaw0C1EnVREp0/QNOBvZw4NPA7e5tbULLmvbnlQcFrWI+9xqhNMfgvR3s3fUh+tClIF0d6nK4gRC41UAkPJpeDMCfnF4EaN+RXX+XxLt3klTThCwRqudQgUKMgBYFaFR5IU+kWwafzGZ9kR+MOwavLsvYUrYtFFQO3LXNgjY7xSxcev9/vxLw7fsP48u8erya9M7/nVOuSdk5ly0EtsnbSFUwQs2ZWSLf8DUAu2eWpzQh2hB37L2vYiGTfXf0Cn7ynb0Flqc0AAAAASUVORK5CYII=);
   }
-  .club_detail_style_sheet{
+
+  .club_detail_style_sheet {
     margin-left: 10px;
     margin-right: 10px;
   }
