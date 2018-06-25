@@ -14,17 +14,17 @@
         <div class="weui-tab__content" :hidden="activeIndex != 0">
           <div v-for="(item2,index2) in news.SHUNEWS" :key="index2" class="weui-cells weui-cells_after-title">
             <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <div class="weui-cell__bd" style="text-align:left">{{item2.title}}</div>
+                <div class="weui-cell__bd" style="text-align:left" @click="openConfirm(item2.title,item2.url)">{{item2.title}}</div>
                 <div class="weui-cell__ft weui-cell__ft_in-access"></div>
             </navigator>
           </div>
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 1">
           <div v-for="(item2,index2) in news.XGB" :key="index2" class="weui-cells weui-cells_after-title">
-            <div class="weui-cell ">
-                <div class="weui-cell__bd" style="text-align:left">{{item2.title}}</div>
-                <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-            </div>
+            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <div class="weui-cell__bd" style="text-align:left" @click="onNewsClick('XGB',index2)">{{item2.title}}</div>
+              <div class="weui-cell__ft weui-cell__ft_in-access"></div>
+            </navigator>
           </div>
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 2">
@@ -117,22 +117,34 @@ export default {
         mask: true
       })
     },
+    openConfirm(title,url) {
+      wx.showModal({
+        title: title,
+        content : '是否进入网页',
+        confirmText: "确定",
+        cancelText: "返回",
+        success: function (res) {
+          console.log(res);
+          if (res.confirm) {
+            console.log('用户点击确定')
+            wx.navigateTo({
+              url:"/pages/webpage/webpage?src="+url
+            })
+          } else {
+            console.log('用户点击返回')
+          }
+        }
+      });
+    },
     onNewsClick(category, index) {
       this.newsSingle = this.news[category][index]
       this.newsSingle.type = category
       this.open = true
-      this.loading = true
-      if (category === 0) {
-        this.open = false
-        this.loading = false
-        window.open(this.newsSingle.url)
-      }
-      else if (category === 1) {
+      //this.loading = true
+      if (category === 'XGB') {
         let fly = new Fly;
-          fly.get('/mobile/campusmessage/GetXgbCampusMessageById', {
-            params: {
+          fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetXgbCampusMessageById', {
               MsgID: this.newsSingle.MsgID
-            }
           })
           .then(response => {
             this.newsSingle.detail = response.data.Summary
@@ -154,6 +166,26 @@ export default {
       }else if (category === 3) {
         this.loading = false
       }
+      var that=this;
+      wx.showModal({
+        title: this.newsSingle.title,
+        content : '是否进入网页',
+        confirmText: "确定",
+        cancelText: "返回",
+        success: function (res) {
+          console.log(res);
+          if (res.confirm) {
+            console.log('用户点击确定')
+            console.log(that.newsSingle);
+            console.log(JSON.stringify(that.newsSingle))
+            wx.navigateTo({
+              url:"/pages/articlepage/articlepage?title="+that.newsSingle.title+"&detail="+JSON.stringify(that.newsSingle.detail)
+            })
+          } else {
+            console.log('用户点击返回')
+          }
+        }
+      });
     },
     loadMoreXGB: function(index) {
       let fly = new Fly;
