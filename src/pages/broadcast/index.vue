@@ -50,11 +50,11 @@
 </template>
 
 <script>
-import Fly from "flyio/dist/npm/wx";
+import Fly from 'flyio/dist/npm/wx';
 export default {
-  data() {
+  data () {
     return {
-      tabs: ["通知公告", "学工办通告", "教务通知","实习就业"],
+      tabs: ['通知公告', '学工办通告', '教务通知', '实习就业'],
       activeIndex: 0,
       fontSize: 20,
       NewsList: [],
@@ -74,7 +74,7 @@ export default {
     }
   },
   computed: {
-    navbarSliderClass() {
+    navbarSliderClass () {
       if (this.activeIndex == 0) {
         this.loadMoreSHUNEWS(1)
         return 'weui-navbar__slider_0'
@@ -94,22 +94,22 @@ export default {
     }
   },
   onReachBottom () {
-      this.page += 1
-      if (this.activeIndex == 0) {
-        this.loadMoreSHUNEWS(1)
-      }
-      if (this.activeIndex == 1) {
-        this.loadMoreXGB(this.page)
-      }
-      if (this.activeIndex == 2) {
-        this.loadMoreJWC(this.page)
-      }
-      if (this.activeIndex == 3) {
-        this.loadMoreJYB(this.page)
-      }
-    },
+    this.page += 1
+    if (this.activeIndex == 0) {
+      this.loadMoreSHUNEWS(1)
+    }
+    if (this.activeIndex == 1) {
+      this.loadMoreXGB(this.page)
+    }
+    if (this.activeIndex == 2) {
+      this.loadMoreJWC(this.page)
+    }
+    if (this.activeIndex == 3) {
+      this.loadMoreJYB(this.page)
+    }
+  },
   methods: {
-    tabClick(e) {
+    tabClick (e) {
       console.log(e);
       this.activeIndex = e.currentTarget.id;
       wx.showLoading({
@@ -117,6 +117,7 @@ export default {
         mask: true
       })
     },
+<<<<<<< HEAD
     openConfirm(title,url) {
       wx.showModal({
         title: title,
@@ -145,22 +146,38 @@ export default {
         let fly = new Fly;
           fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetXgbCampusMessageById', {
           })
+=======
+    onNewsClick (category, index) {
+      this.newsSingle = this.news[category][index]
+      this.newsSingle.type = category
+      this.open = true
+      this.loading = true
+      if (category === 0) {
+        this.open = false
+        this.loading = false
+        window.open(this.newsSingle.url)
+      } else if (category === 1) {
+        let fly = new Fly();
+        fly.get('/mobile/campusmessage/GetXgbCampusMessageById', {
+          MsgID: this.newsSingle.MsgID
+        })
+>>>>>>> 5fb0899b8e14bcc1dcbe58ffbebaf5d2d4b58b0d
           .then(response => {
             this.newsSingle.detail = response.data.Summary
             this.loading = false
             // this.$nextTick(() => {
             // })
           })
-      }else if (category === 2) {
+      } else if (category === 2) {
         this.$http
           .get('/mobile/campusmessage/GetJwcMessageById', {
-              MsgID: this.newsSingle.MsgID
+            MsgID: this.newsSingle.MsgID
           })
           .then(response => {
             this.newsSingle.detail = response.data.Summary
             this.loading = false
           })
-      }else if (category === 3) {
+      } else if (category === 3) {
         this.loading = false
       }
       var that=this;
@@ -184,12 +201,12 @@ export default {
         }
       });
     },
-    loadMoreXGB: function(index) {
-      let fly = new Fly;
-        fly.get('http://sz.shuhelper.cn/mobile/campusmessage/getxgbmessagelist', {
-            limit:10,
-            currentPage:index
-        })
+    loadMoreXGB: function (index) {
+      let fly = new Fly();
+      fly.get('http://sz.shuhelper.cn/mobile/campusmessage/getxgbmessagelist', {
+        limit: 10,
+        currentPage: index
+      })
         .then(response => {
           console.log(response)
           if (response.data.messagelist.length === 0) {
@@ -206,12 +223,12 @@ export default {
         })
       wx.hideLoading();
     },
-    loadMoreSHUNEWS: function(index) {
-      let fly = new Fly;
-        fly.get('http://sz.shuhelper.cn/TongZGG/TongZGG/GetShuNews', {
-            pageSize:10,
-            pageNumber:index
-        })
+    loadMoreSHUNEWS: function (index) {
+      let fly = new Fly();
+      fly.get('http://sz.shuhelper.cn/TongZGG/TongZGG/GetShuNews', {
+        pageSize: 10,
+        pageNumber: index
+      })
         .then(response => {
           if (response.data.data.total === 0) {
             this.$refs.infiniteScrollXGB.stop()
@@ -226,12 +243,12 @@ export default {
           }
         })
     },
-    loadMoreJWC: function(index) {
-      let fly = new Fly;
-        fly.get('http://sz.shuhelper.cn/mobile/campusmessage/getJwcmessagelist', {
-            limit:10,
-            currentPage:index
-        })
+    loadMoreJWC: function (index) {
+      let fly = new Fly();
+      fly.get('http://sz.shuhelper.cn/mobile/campusmessage/getJwcmessagelist', {
+        limit: 10,
+        currentPage: index
+      })
         .then(response => {
           console.log(response)
           if (response.data.messagelist.length === 0) {
@@ -248,14 +265,14 @@ export default {
           }
         })
     },
-    loadMoreJYB: function(index) {
-      let fly = new Fly;
-        fly.get('http://sz.shuhelper.cn/api/TongZGG/TongZGG/GetJiuYXW', {
-            infoTitle: '',
-            infoType: '通知公告',
-            pageSize: 20,
-            pageNumber: index
-        })
+    loadMoreJYB: function (index) {
+      let fly = new Fly();
+      fly.get('http://sz.shuhelper.cn/api/TongZGG/TongZGG/GetJiuYXW', {
+        infoTitle: '',
+        infoType: '通知公告',
+        pageSize: 20,
+        pageNumber: index
+      })
         .then(response => {
           console.log(response)
           if (response.data.data.xinw.length === 0) {
