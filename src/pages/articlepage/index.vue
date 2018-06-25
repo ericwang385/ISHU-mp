@@ -1,92 +1,79 @@
 <template>
   <div class="page">
-    <div class="page__bd">
-      <div class="weui-article">
-        <div v-bind:news="news" class="weui-article__h1">{{title}}</div>
-        <div v-html="detail"></div>
-      </div>
+    <div class="page__bd page__bd_spacing">
+      <wxParse :content="this.newsSingle.detail"  />
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
-  import Fly from 'flyio/dist/npm/wx';
+import Fly from 'flyio/dist/npm/wx';
+import wxParse from 'mpvue-wxparse'
 export default {
+  components: {
+    wxParse
+  },
   data() {
     return {
-      news : {
-      type:"",
-      MsgID: ""
+      newsSingle: {
+        title: '',
+        detail: '',
+        type: ''
       },
-      new_2 : {
-      title:"",
-      detil:""
-      },
-      detail : "",
-      title : "",
-      JYB : [],
-      card:{
-      }
+      MsgID: '',
+      category: '',
+      page: ''
     }
   },
-  onLoad: function(options) {
-    console.log("1."+options)
-    //this.news= JSON.parse(options.detail);
-    this.news=options
-    console.log("2."+this.news.MsgID)
-    if (options.type === 'XGB') {
+  onLoad() {
+    this.MsgID =  this.$root.$mp.query.MsgID
+    this.category = this.$root.$mp.query.category
+    this.page = this.$root.$mp.query.page
+    this.getdetail(this.category,this.MsgID,this.page)
+  },
+  methods: {
+    getdetail (category,MsgID,page) {
+      if (category === 'XGB') {
         let fly = new Fly();
         fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetXgbCampusMessageById', {
-          MsgID: this.news.MsgID
+          MsgID: MsgID
         })
-        .then(response => {
-          this.detail = response.data.Summary
-          this.title = response.data.Title
-          console.log('3.'+this.detail)
-          // this.$nextTick(() => {
-          // })
-        })
-     } else if (options.type === 'JWC') {
+          .then(response => {
+            this.newsSingle.detail = response.data.Summary
+            this.loading = false
+          })
+      } else if (category === 'JWC') {
         let fly = new Fly();
-        fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetJwcMessageById', {
-            MsgID: this.news.MsgID
-        })
-        .then(response => {
-          this.detail = response.data.Summary
-          this.title = response.data.Title
-          console.log('3.'+this.detail)
-        })
-      } else if (options.type === 'JYB') {
-          for (let index of [0,1]){
-            let fly = new Fly();
-            fly.get('http://sz.shuhelper.cn/api/TongZGG/TongZGG/GetJiuYXW', {
+          fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetJwcMessageById', {
+            MsgID: MsgID
+          })
+          .then(response => {
+            this.newsSingle.detail = response.data.Summary
+            this.loading = false
+          })
+          
+      } else if (category === 'JYB') {
+          let fly = new Fly();
+          fly.get('http://sz.shuhelper.cn/api/TongZGG/TongZGG/GetJiuYXW', {
             infoTitle: '',
             infoType: '通知公告',
             pageSize: 20,
-            pageNumber: index
-            })
-            .then(response => {
-              if (response.data.data.xinw.length === 0) {
-                this.$refs.infiniteScrollJYB.stop()
-              }
-              var that=this
-              for (let item of response.data.data.xinw) {
-                let news_2 = {
-                  title: item.InfoTitle,
-                  detail: item.InfoContent, 
-                }
-                that.JYB.push(news_2)
-              }
-            })
+            pageNumber: page
+          })
+        .then(response => {
+          console.log(response)
+          if (response.data.data.xinw.length === 0) {
+            this.$refs.infiniteScrollJYB.stop()
           }
-          console.log('7.'+this.JYB)
-          this.card = this.JYB[this.news.MsgID]
-          console.log('8.'+this.card)
+          this.newsSingle.detail = response.data.data.xinw[MsgID].InfoContent
+        })
       }
-  }   
+      console.log(this.newsSingle.detail)
+    },
+  }
 }
 </script>
 
 <style>
-
+@import url("~mpvue-wxparse/src/wxParse.css");
 </style>

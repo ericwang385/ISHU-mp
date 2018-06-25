@@ -13,34 +13,34 @@
       <div class="weui-tab__panel">
         <div class="weui-tab__content" :hidden="activeIndex != 0">
           <div v-for="(item2,index2) in news.SHUNEWS" :key="index2" class="weui-cells weui-cells_after-title">
-            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <div class="weui-cell " hover-class="weui-cell_active">
                 <div class="weui-cell__bd" style="text-align:left" @click="openConfirm(item2.title,item2.url)">{{item2.title}}</div>
                 <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-            </navigator>
+            </div>
           </div>
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 1">
           <div v-for="(item2,index2) in news.XGB" :key="index2" class="weui-cells weui-cells_after-title">
-            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <div class="weui-cell " hover-class="weui-cell_active">
               <div class="weui-cell__bd" style="text-align:left" @click="onNewsClick('XGB',index2)">{{item2.title}}</div>
               <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-            </navigator>
+            </div>
           </div>
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 2">
           <div v-for="(item2,index2) in news.JWC" :key="index2" class="weui-cells weui-cells_after-title">
-            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <div class="weui-cell " hover-class="weui-cell_active">
               <div class="weui-cell__bd" style="text-align:left" @click="onNewsClick('JWC',index2)">{{item2.title}}</div>
               <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-            </navigator>
+            </div>
           </div>   
         </div>
         <div class="weui-tab__content" :hidden="activeIndex != 3">
           <div v-for="(item2,index2) in news.JYB" :key="index2" class="weui-cells weui-cells_after-title">
-            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <div class="weui-cell " hover-class="weui-cell_active">
               <div class="weui-cell__bd" style="text-align:left" @click="onNewsClick('JYB',index2)">{{item2.title}}</div>
               <div class="weui-cell__ft weui-cell__ft_in-access"></div>
-            </navigator>
+            </div>
           </div>
         </div>
       </div>
@@ -60,7 +60,6 @@ export default {
       NewsList: [],
       news: {
         XGB: [],
-        SHU: [],
         JYB: [],
         JWC: [],
         SHUNEWS: []
@@ -76,7 +75,7 @@ export default {
   computed: {
     navbarSliderClass () {
       if (this.activeIndex == 0) {
-        this.loadMoreSHUNEWS(1)
+        this.loadMoreSHUNEWS(this.page)
         return 'weui-navbar__slider_0'
       }
       if (this.activeIndex == 1) {
@@ -118,43 +117,27 @@ export default {
       })
     },
     openConfirm(title,url) {
-      wx.showModal({
-        title: title,
-        content : '是否进入网页',
-        confirmText: "确定",
-        cancelText: "返回",
-        success: function (res) {
-          console.log(res);
-          if (res.confirm) {
-            console.log('用户点击确定')
-            wx.navigateTo({
-              url:"/pages/webpage/webpage?src="+url
-            })
-          } else {
-            console.log('用户点击返回')
-          }
-        }
-      });
+      wx.navigateTo({
+        url:"/pages/webpage/webpage?src="+url
+      })
     },
     onNewsClick (category, index) {
       this.newsSingle = this.news[category][index]
       this.newsSingle.type = category
       this.open = true
       this.loading = true
-      if (category === 1) {
+      if (category === 'XGB') {
         let fly = new Fly();
-        fly.get('/mobile/campusmessage/GetXgbCampusMessageById', {
+        fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetXgbCampusMessageById', {
           MsgID: this.newsSingle.MsgID
         })
           .then(response => {
             this.newsSingle.detail = response.data.Summary
             this.loading = false
-            // this.$nextTick(() => {
-            // })
           })
-      } else if (category === 2) {
-        this.$http
-          .get('/mobile/campusmessage/GetJwcMessageById', {
+      } else if (category === 'JWC') {
+        let fly = new Fly();
+          fly.get('http://sz.shuhelper.cn/mobile/campusmessage/GetJwcMessageById', {
             MsgID: this.newsSingle.MsgID
           })
           .then(response => {
@@ -164,25 +147,9 @@ export default {
       } else if (category === 'JYB') {
           this.newsSingle.MsgID = index
       }
-      var that=this;
-      wx.showModal({
-        title: this.newsSingle.title,
-        content : '是否进入页面',
-        confirmText: "确定",
-        cancelText: "返回",
-        success: function (res) {
-          console.log(res);
-          if (res.confirm) {
-            console.log('用户点击确定')
-            console.log(that.newsSingle.MsgID);
-            wx.navigateTo({
-              url:"/pages/articlepage/articlepage?type="+that.newsSingle.type+"&MsgID="+that.newsSingle.MsgID
-            })
-          } else {
-            console.log('用户点击返回')
-          }
-        }
-      });
+      wx.navigateTo({
+        url:"/pages/articlepage/articlepage?MsgID="+this.newsSingle.MsgID+"&category="+category+"&page="+this.page
+      })
     },
     loadMoreXGB: function (index) {
       let fly = new Fly();

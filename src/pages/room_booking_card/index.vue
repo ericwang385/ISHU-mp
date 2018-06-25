@@ -19,6 +19,14 @@
             <input class="weui-input" placeholder="请输入手机号" />
           </div>
         </div>
+        <div class="weui-cell weui-cell_input weui-cell_vcode">
+          <div class="weui-cell__hd">
+            <div class="weui-label">学号</div>
+          </div>
+          <div class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入学号" />
+          </div>
+        </div>
         <div class="weui-cell weui-cell_input">
           <div class="weui-cell__hd">
             <div class="weui-label">日期</div>
@@ -35,7 +43,7 @@
           </div>
           <div class="weui-cell__bd">
             <picker  @change="PickerChange" value="indexPicker" :range="array">
-                <div class="weui-input">{{indexPicker}}</div>
+                <div class="weui-input">{{array[timeChange]}}</div>
             </picker>
           </div>
         </div>
@@ -60,7 +68,8 @@ export default {
     data() {
         return{
             array: ['8:00-10:00', '10:00-12:00', '12:00-14:00', '14:00-16:00'],
-            date: '2018-09-01'
+            date: '2018-09-01',
+            timeChange: 0
         }
     },
     methods: {
@@ -72,6 +81,9 @@ export default {
       this.time = e.mp.detail.value;
       console.log(e.mp.detail.value);
     },
+    PickerChange(e) {
+        this.timeChange = e.mp.detail.value;
+    }
     }
 }
 </script>

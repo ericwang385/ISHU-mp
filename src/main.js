@@ -22,7 +22,8 @@ export default {
       'pages/search/search',
       'pages/affairs/affairs',
       'pages/room_booking/room_booking',
-      'pages/room_booking_card/room_booking_card'
+      'pages/room_booking_card/room_booking_card',
+      'pages/articlepage/articlepage'
 
     ], // Will be filled in webpack
     window: {
