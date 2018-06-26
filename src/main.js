@@ -23,7 +23,7 @@ export default {
       'pages/affairs/affairs',
       'pages/room_booking/room_booking',
       'pages/room_booking_card/room_booking_card',
-      'pages/articlepage/articlepage'
+      'pages/articlepage/articlepage',
       'pages/activity/activity'
 
     ], // Will be filled in webpack

@@ -12,12 +12,11 @@
         </div>
         <div class="weui-tab__panel">
           <div class="weui-tab__content" :hidden="activeIndex != 0">
-            <activity-card v-for="(activity,index) in activities" :activity="activity" :key="index"></activity-card>
+            <activity-card v-on:listenToChildEvent="ShowMsgFromChild" v-for="(activity,index) in activities" :activity="activity" :key="index"></activity-card>
           </div>
           <div class="weui-tab__content" :hidden="activeIndex != 1">
-
-          2
-
+            <enroll-in-card :selected_activity_name="activity_name_from_child"
+                            :selected_activity_id="activity_id_from_child"></enroll-in-card>
           </div>
           <!--<div class="weui-tab__content" :hidden="activeIndex != 2">选项三的内容</div>-->
         </div>
@@ -29,13 +28,18 @@
 <script>
   import Fly from 'flyio/dist/npm/wx'
   import ActivityCard from './activity_card'
+  import EnrollInCard from '../../components/enroll_in_card'
   export default {
     components: {
-      ActivityCard
+      ActivityCard,
+      EnrollInCard
     },
     data () {
       return {
-        tabs: ['选项一', '选项二'],
+        activity_id_from_child: 0,
+        activity_name_from_child: '',
+        parentMsg: 'Hello',
+        tabs: ['活动一览', '报名活动'],
         activeIndex: 0,
         fontSize: 40,
         selectedTab: '',
@@ -99,6 +103,13 @@
       }
     },
     methods: {
+      ShowMsgFromChild (data) {
+        // console.log(data);
+        this.activity_name_from_child = data[0];
+        this.activity_id_from_child = data[1];
+       // console.log(this.activity_id_from_child + this.activity_name_from_child);
+        this.activeIndex = 1;
+      },
       getActivities () {
         this.loadMoreActivities(1)
       },

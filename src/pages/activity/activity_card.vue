@@ -80,7 +80,8 @@
           }
         },
         OnEnrollIn () {
-          console.log('enroll in')
+          console.log('enroll in');
+          this.$emit('listenToChildEvent', [this.activity.title, this.activity.id])
         }
       }
     }
