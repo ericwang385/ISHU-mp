@@ -63,27 +63,7 @@ export default {
         }
       ]
     };
-  },
-
-  components: {},
-
-  methods: {
-    kindToggle (e) {
-      let id = e.currentTarget.id,
-        list = this.list;
-      for (var i = 0, len = list.length; i < len; ++i) {
-        if (list[i].id === id) {
-          list[i].open = !list[i].open;
-        } else {
-          list[i].open = false;
-        }
-      }
-      this.list = list;
-    }
-  },
-
-  created () { }
-};
+  },}
 </script>
 
 <style scoped>

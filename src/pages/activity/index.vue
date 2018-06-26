@@ -195,11 +195,11 @@
   }
   .weui-navbar__slider_0 {
     left: 29rpx;
-    transform: translateX(0);
+    transform: translateX(60rpx);
   }
   .weui-navbar__slider_1 {
     left: 29rpx;
-    transform: translateX(380rpx);
+    transform: translateX(440rpx);
   }
   /*.weui-navbar__slider_2 {*/
     /*left: 29rpx;*/

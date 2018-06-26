@@ -15,8 +15,7 @@ export default {
   // 这个字段走 app.json
   config: {
     pages: [
-      'pages/login/login',
-      '^pages/index/index',
+      'pages/index/index',
       'pages/broadcast/broadcast',
       'pages/club/club',
       'pages/search/search',
@@ -24,7 +23,7 @@ export default {
       'pages/room_booking/room_booking',
       'pages/room_booking_card/room_booking_card',
       'pages/articlepage/articlepage',
-      'pages/activity/activity'
+      '^pages/activity/activity'
 
     ], // Will be filled in webpack
     window: {
