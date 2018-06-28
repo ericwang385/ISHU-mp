@@ -4,7 +4,7 @@
       <div class="weui-tab">
         <div class="weui-navbar">
           <block v-for="(item,index) in tabs" :key="index">
-            <div :id="index" :class="{'weui-bar__item_on':activeIndex === index}" class="weui-navbar__item"
+            <div :id="index" :class="{'weui-bar__item_on':activeIndex == index}" class="weui-navbar__item"
                  @click="tabClick">
               <div class="weui-navbar__title">{{item}}</div>
             </div>
@@ -38,7 +38,7 @@
                 <div class="weui-cells weui-cells_after-title">
                   <div class="weui-cell weui-cell_input">
                     <div class="weui-cell__hd">
-                      <div class="weui-label">组织级别</div>
+                      <div class="weui-label">组织类别</div>
                     </div>
                     <div class="weui-cell__bd">
                       <input disabled="disabled" class="weui-input" :placeholder=search.category />
@@ -60,7 +60,7 @@
             <div class="weui-tab__content" :hidden="activeIndex != 1">
               <club-sign-up></club-sign-up>
             </div>
-            <div class="weui-tab__content" :hidden="activeIndex != 2">选项三的内容</div>
+            <!--<div class="weui-tab__content" :hidden="activeIndex != 2">选项三的内容</div>-->
           </div>
         </div>
       </div>
@@ -295,18 +295,14 @@ page,
 
 .weui-navbar__slider_0 {
   left: 5 rpx;
-  transform: translateX(0);
+  transform: translateX(100rpx);
 }
 
 .weui-navbar__slider_1 {
   left: 5 rpx;
-  transform: translateX(250);
+  transform: translateX(470rpx);
 }
 
-.weui-navbar__slider_1 {
-  left: 5 rpx;
-  transform: translateX(500);
-}
 
 .kind-list__item {
   margin: 10px 0;
@@ -315,31 +311,4 @@ page,
   overflow: hidden;
 }
 
-.kind-list__item:first-child {
-  margin-top: 0;
-}
-
-.kind-list__img {
-  width: 30px;
-  height: 30px;
-}
-
-.kind-list__item-hd {
-  padding: 20px;
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-}
-
-.kind-list__item-hd_show {
-  opacity: 0.4;
-}
-
-.kind-list__item-bd {
-  height: 0;
-  overflow: hidden;
-}
-
-.kind-list__item-bd_show {
-  height: auto;
-}
 </style>

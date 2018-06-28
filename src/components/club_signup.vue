@@ -189,7 +189,7 @@
         }
         let fly = new Fly()
         // http://sz.shuhelper.cn/api/ZuZhi/ZuZCY/CreateZuZBM 这个是正确的号码
-        fly.post('http://sz.shuhelper.cn/api/ZuZhi/ZuZCY/CrateZuZBM', {
+        fly.post('http://sz.shuhelper.cn/api/ZuZhi/ZuZCY/CreateZuZBM', {
           ZuZXXId: this.clubs[this.clubs_name_list.indexOf(this.ClubName)].id,
           XueHao: this.STaccount,
           ShouJHM: this.phone,
